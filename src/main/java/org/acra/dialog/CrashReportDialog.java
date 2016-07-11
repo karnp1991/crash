@@ -32,7 +32,7 @@ public class CrashReportDialog extends BaseCrashReportDialog implements DialogIn
 
     private static final String STATE_EMAIL = "email";
     private static final String STATE_COMMENT = "comment";
-    private static final int MARGIN = 30;
+    private static final int MARGIN = 20;
 
     private LinearLayout scrollable;
     private EditText userCommentView;
@@ -80,7 +80,6 @@ public class CrashReportDialog extends BaseCrashReportDialog implements DialogIn
     @NonNull
     protected View buildCustomView(@Nullable Bundle savedInstanceState) {
         final ScrollView root = new ScrollView(this);
-	    //scrollable.setPadding(dpToPx(MARGIN), dpToPx(MARGIN), dpToPx(MARGIN), dpToPx(MARGIN));
 	    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 	    layoutParams.setMargins(dpToPx(MARGIN), dpToPx(MARGIN), dpToPx(MARGIN), dpToPx(MARGIN));
         root.setLayoutParams(layoutParams);
