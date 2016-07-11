@@ -2,12 +2,14 @@ package org.acra.dialog;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
@@ -30,7 +32,7 @@ public class CrashReportDialog extends BaseCrashReportDialog implements DialogIn
 
     private static final String STATE_EMAIL = "email";
     private static final String STATE_COMMENT = "comment";
-    private static final int PADDING = 10;
+    private static final int MARGIN = 16;
 
     private LinearLayout scrollable;
     private EditText userCommentView;
@@ -78,8 +80,9 @@ public class CrashReportDialog extends BaseCrashReportDialog implements DialogIn
     @NonNull
     protected View buildCustomView(@Nullable Bundle savedInstanceState) {
         final ScrollView root = new ScrollView(this);
-        root.setPadding(PADDING, PADDING, PADDING, PADDING);
-        root.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+	    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+	    layoutParams.setMargins(dpToPx(MARGIN), 0, dpToPx(MARGIN), 0);
+        root.setLayoutParams(layoutParams);
         root.setFocusable(true);
         root.setFocusableInTouchMode(true);
         root.addView(scrollable);
@@ -89,7 +92,6 @@ public class CrashReportDialog extends BaseCrashReportDialog implements DialogIn
         // Add an optional prompt for user comments
         final View comment = getCommentLabel();
         if (comment != null) {
-            comment.setPadding(comment.getPaddingLeft(), PADDING, comment.getPaddingRight(), comment.getPaddingBottom());
             addViewToDialog(comment);
             String savedComment = null;
             if (savedInstanceState != null) {
@@ -102,7 +104,6 @@ public class CrashReportDialog extends BaseCrashReportDialog implements DialogIn
         // Add an optional user email field
         final View email = getEmailLabel();
         if (email != null) {
-            email.setPadding(email.getPaddingLeft(), PADDING, email.getPaddingRight(), email.getPaddingBottom());
             addViewToDialog(email);
             String savedEmail = null;
             if (savedInstanceState != null) {
@@ -255,4 +256,14 @@ public class CrashReportDialog extends BaseCrashReportDialog implements DialogIn
     protected AlertDialog getDialog() {
         return mDialog;
     }
+
+	private int dpToPx(int dp)
+	{
+		Resources r = getResources();
+		return (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP,
+				dp,
+				r.getDisplayMetrics()
+		);
+	}
 }
