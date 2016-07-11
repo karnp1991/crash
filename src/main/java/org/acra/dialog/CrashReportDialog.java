@@ -80,8 +80,9 @@ public class CrashReportDialog extends BaseCrashReportDialog implements DialogIn
     @NonNull
     protected View buildCustomView(@Nullable Bundle savedInstanceState) {
         final ScrollView root = new ScrollView(this);
+	    scrollable.setPadding(dpToPx(MARGIN), dpToPx(MARGIN), dpToPx(MARGIN), dpToPx(MARGIN));
 	    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-	    layoutParams.setMargins(dpToPx(MARGIN), 0, dpToPx(MARGIN), 0);
+	    layoutParams.setMargins(dpToPx(MARGIN), dpToPx(MARGIN), dpToPx(MARGIN), dpToPx(MARGIN));
         root.setLayoutParams(layoutParams);
         root.setFocusable(true);
         root.setFocusableInTouchMode(true);
