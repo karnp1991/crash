@@ -1,17 +1,8 @@
 apply plugin: 'com.android.library'
 
-ext {
-    final def pom = new XmlSlurper().parse(new File(projectDir, "pom.xml"))
-    acraVersion = pom.version.toString()
-    supportVersion = pom.depthFirst().find { it.name() == 'support.version' }.toString()
-    androidVersion = pom.depthFirst().find { it.name() == 'android.version' }.toInteger()
-    proguardFile = pom.depthFirst().find { it.name() == 'consumerProguardFile' }.toString()
-    println("building ACRA $acraVersion for android $androidVersion with support version $supportVersion")
-}
-
 android {
-    compileSdkVersion androidVersion
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
 
     lintOptions {
         abortOnError false
@@ -19,11 +10,16 @@ android {
 
     defaultConfig {
         minSdkVersion 8
-        targetSdkVersion androidVersion
-        versionName acraVersion
-        consumerProguardFile proguardFile
+        targetSdkVersion 24
+        versionCode 1
+        versionName "4.9.1"
     }
-
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'src/main/proguard/proguard.cfg'
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_6
@@ -31,6 +27,15 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-v4:$supportVersion"
-    compile "com.android.support:support-annotations:$supportVersion"
+    compile "com.android.support:support-v4:24.0.0"
+    compile "com.android.support:support-annotations:24.0.0"
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha3'
+    }
 }
