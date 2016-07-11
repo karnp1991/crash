@@ -32,7 +32,7 @@ public class CrashReportDialog extends BaseCrashReportDialog implements DialogIn
 
     private static final String STATE_EMAIL = "email";
     private static final String STATE_COMMENT = "comment";
-    private static final int MARGIN = 20;
+    private static final int MARGIN = 16;
 
     private LinearLayout scrollable;
     private EditText userCommentView;
